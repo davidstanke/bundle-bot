@@ -1,0 +1,31 @@
+[project]
+name = "bundle-bot"
+version = "0.1.0"
+description = "BundleBot: B2B Tech Kit Builder & Margin Optimizer (ADK 2.0 Workflow)"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "google-adk>=2.0.0a1",
+    "google-cloud-aiplatform[agent-engines,adk]>=1.129.0",
+    "pydantic>=2.7.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "ruff>=0.4.0",
+]
+eval = [
+    "google-adk[eval]>=2.0.0a1",
+]
+
+[tool.agents-cli]
+agent = "adk"
+deployment_target = "agent_runtime"
+is_a2a = false
+project_name = "bundle-bot"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+asyncio_mode = "auto"
