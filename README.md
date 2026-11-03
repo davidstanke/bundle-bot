@@ -1,4 +1,4 @@
-# BundleBot — B2B Tech Kit & Margin Optimizer (Ingram Micro Demo)
+# BundleBot — B2B Tech Kit & Margin Optimizer
 
 **Scenario:** A channel reseller asks in natural language: *"Build a remote-work hardware + software kit for 24 new hires under \$45k shipping to Austin."*
 **BundleBot** (built with **ADK 2.0 Graph Workflows**) parses requirements, selects SKUs from `data/catalog.json`, validates hardware/power compatibility (e.g., USB-C dock wattage vs. laptop draw), and optimizes reseller margin—flagging when adding 1–2 units unlocks the **Gold 25+ Volume Tier (12% off)** for a lower total price.

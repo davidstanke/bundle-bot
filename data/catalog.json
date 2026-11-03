@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "distributor": "Ingram Micro (Demo Mock Catalog)",
+    "distributor": "Global Tech Distribution (Demo Mock Catalog)",
     "currency": "USD",
     "warehouses": [
       "US-Central (Austin, TX)",
@@ -228,7 +228,7 @@
     {
       "sku": "IM-WAR-NBD3Y",
       "name": "TotalCare 3-Year Next-Business-Day Onsite Hardware Support",
-      "vendor": "Ingram CareServices",
+      "vendor": "TotalCare Services",
       "category": "software_warranty",
       "tier": "standard",
       "msrp": 95.00,
