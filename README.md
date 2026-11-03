@@ -12,9 +12,9 @@
 uvx google-agents-cli setup
 
 # 2. Export your demo GCP project & pre-warmed Agent Runtime / Gemini Enterprise IDs
-export GOOGLE_CLOUD_PROJECT="your-demo-project-id"
+export GOOGLE_CLOUD_PROJECT="$(gcloud config get-value project)"
 export GOOGLE_CLOUD_LOCATION="us-central1"
-export GEMINI_ENTERPRISE_APP_ID="projects/${GOOGLE_CLOUD_PROJECT}/locations/global/collections/default_collection/engines/your-ge-app-id"
+export GEMINI_ENTERPRISE_APP_ID="$(agents-cli publish gemini --list 2>/dev/null | tail -n 1 | jq -r '.apps[0].name')"
 
 # 3. Start on the `main` starter branch (has data/catalog.json + minimal stub)
 git checkout main
