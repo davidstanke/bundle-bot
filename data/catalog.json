@@ -21,8 +21,8 @@
       "vendor": "ApexTech",
       "category": "laptop",
       "tier": "standard",
-      "msrp": 1150.00,
-      "reseller_cost": 940.00,
+      "msrp": 1120.00,
+      "reseller_cost": 920.00,
       "specs": {
         "usb_c_power_watts_required": 65,
         "video_out": ["USB-C DP1.4", "HDMI 2.1"],
