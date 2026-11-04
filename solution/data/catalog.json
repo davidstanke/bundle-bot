@@ -1,0 +1,248 @@
+{
+  "metadata": {
+    "distributor": "Global Tech Distribution (Demo Mock Catalog)",
+    "currency": "USD",
+    "warehouses": [
+      "US-Central (Austin, TX)",
+      "US-East (Harrisburg, PA)",
+      "US-West (Mira Loma, CA)"
+    ],
+    "volume_tiers": [
+      {"tier_name": "Standard", "min_qty": 1, "discount_pct": 0.0},
+      {"tier_name": "Silver Partner (10+)", "min_qty": 10, "discount_pct": 5.0},
+      {"tier_name": "Gold Partner (25+)", "min_qty": 25, "discount_pct": 12.0},
+      {"tier_name": "Platinum Partner (50+)", "min_qty": 50, "discount_pct": 18.0}
+    ]
+  },
+  "skus": [
+    {
+      "sku": "IM-LPT-PRO14",
+      "name": "ApexBook Pro 14 (Core Ultra 7, 16GB, 512GB)",
+      "vendor": "ApexTech",
+      "category": "laptop",
+      "tier": "standard",
+      "msrp": 1120.00,
+      "reseller_cost": 920.00,
+      "specs": {
+        "usb_c_power_watts_required": 65,
+        "video_out": ["USB-C DP1.4", "HDMI 2.1"],
+        "os": "Windows 11 Pro"
+      },
+      "stock": {
+        "US-Central (Austin, TX)": 120,
+        "US-East (Harrisburg, PA)": 85,
+        "US-West (Mira Loma, CA)": 60
+      }
+    },
+    {
+      "sku": "IM-LPT-ULT16",
+      "name": "ApexBook Studio 16 (Core Ultra 9, 32GB, 1TB, RTX)",
+      "vendor": "ApexTech",
+      "category": "laptop",
+      "tier": "performance",
+      "msrp": 1850.00,
+      "reseller_cost": 1480.00,
+      "specs": {
+        "usb_c_power_watts_required": 100,
+        "video_out": ["Thunderbolt 4", "HDMI 2.1"],
+        "os": "Windows 11 Pro"
+      },
+      "stock": {
+        "US-Central (Austin, TX)": 45,
+        "US-East (Harrisburg, PA)": 40,
+        "US-West (Mira Loma, CA)": 30
+      }
+    },
+    {
+      "sku": "IM-LPT-VAL14",
+      "name": "NovaBook Essential 14 (Ryzen 5, 16GB, 256GB)",
+      "vendor": "NovaCompute",
+      "category": "laptop",
+      "tier": "value",
+      "msrp": 790.00,
+      "reseller_cost": 655.00,
+      "specs": {
+        "usb_c_power_watts_required": 65,
+        "video_out": ["USB-C DP1.4", "HDMI 2.0"],
+        "os": "Windows 11 Pro"
+      },
+      "stock": {
+        "US-Central (Austin, TX)": 200,
+        "US-East (Harrisburg, PA)": 150,
+        "US-West (Mira Loma, CA)": 110
+      }
+    },
+    {
+      "sku": "IM-DCK-65W",
+      "name": "ConnectHub USB-C Dual-4K Dock (65W PD)",
+      "vendor": "PortMaster",
+      "category": "dock",
+      "tier": "value",
+      "msrp": 145.00,
+      "reseller_cost": 108.00,
+      "specs": {
+        "usb_c_power_delivery_watts": 65,
+        "max_displays": 2,
+        "display_ports": ["HDMI 2.0", "DisplayPort 1.4"],
+        "host_interface": "USB-C DP1.4"
+      },
+      "stock": {
+        "US-Central (Austin, TX)": 180,
+        "US-East (Harrisburg, PA)": 140,
+        "US-West (Mira Loma, CA)": 95
+      }
+    },
+    {
+      "sku": "IM-DCK-100W",
+      "name": "ConnectHub Pro Thunderbolt 4 Dock (100W PD)",
+      "vendor": "PortMaster",
+      "category": "dock",
+      "tier": "standard",
+      "msrp": 220.00,
+      "reseller_cost": 162.00,
+      "specs": {
+        "usb_c_power_delivery_watts": 100,
+        "max_displays": 2,
+        "display_ports": ["HDMI 2.1", "DisplayPort 1.4", "USB-C"],
+        "host_interface": "Thunderbolt 4 / USB-C DP1.4"
+      },
+      "stock": {
+        "US-Central (Austin, TX)": 90,
+        "US-East (Harrisburg, PA)": 110,
+        "US-West (Mira Loma, CA)": 75
+      }
+    },
+    {
+      "sku": "IM-MON-27QHD",
+      "name": "ClearView 27\" QHD IPS Ergonomic Monitor",
+      "vendor": "ClearView",
+      "category": "monitor",
+      "tier": "standard",
+      "msrp": 260.00,
+      "reseller_cost": 198.00,
+      "specs": {
+        "resolution": "2560x1440",
+        "inputs": ["HDMI 2.0", "DisplayPort 1.4"],
+        "vesa_mount": true
+      },
+      "stock": {
+        "US-Central (Austin, TX)": 160,
+        "US-East (Harrisburg, PA)": 130,
+        "US-West (Mira Loma, CA)": 90
+      }
+    },
+    {
+      "sku": "IM-MON-24FHD",
+      "name": "ClearView 24\" FHD Business Monitor",
+      "vendor": "ClearView",
+      "category": "monitor",
+      "tier": "value",
+      "msrp": 155.00,
+      "reseller_cost": 118.00,
+      "specs": {
+        "resolution": "1920x1080",
+        "inputs": ["HDMI 2.0", "DisplayPort 1.2"],
+        "vesa_mount": true
+      },
+      "stock": {
+        "US-Central (Austin, TX)": 240,
+        "US-East (Harrisburg, PA)": 190,
+        "US-West (Mira Loma, CA)": 150
+      }
+    },
+    {
+      "sku": "IM-MON-32UHD",
+      "name": "ClearView Ultra 32\" 4K Creator Display",
+      "vendor": "ClearView",
+      "category": "monitor",
+      "tier": "performance",
+      "msrp": 480.00,
+      "reseller_cost": 370.00,
+      "specs": {
+        "resolution": "3840x2160",
+        "inputs": ["HDMI 2.1", "DisplayPort 1.4", "USB-C"],
+        "vesa_mount": true
+      },
+      "stock": {
+        "US-Central (Austin, TX)": 55,
+        "US-East (Harrisburg, PA)": 60,
+        "US-West (Mira Loma, CA)": 40
+      }
+    },
+    {
+      "sku": "IM-PER-COMBO",
+      "name": "ErgoType Wireless Keyboard & Precision Mouse Combo",
+      "vendor": "KeyCraft",
+      "category": "peripherals",
+      "tier": "standard",
+      "msrp": 85.00,
+      "reseller_cost": 60.00,
+      "specs": {
+        "connectivity": "2.4GHz + Bluetooth",
+        "includes": ["Keyboard", "Mouse"]
+      },
+      "stock": {
+        "US-Central (Austin, TX)": 300,
+        "US-East (Harrisburg, PA)": 250,
+        "US-West (Mira Loma, CA)": 210
+      }
+    },
+    {
+      "sku": "IM-PER-ANC",
+      "name": "VoiceClear Pro ANC USB-C/Bluetooth Headset",
+      "vendor": "AcoustiX",
+      "category": "audio_video",
+      "tier": "standard",
+      "msrp": 130.00,
+      "reseller_cost": 92.00,
+      "specs": {
+        "certified_for": ["Google Meet", "Zoom", "Teams"],
+        "includes": ["ANC Headset", "USB-C Dongle", "1080p Webcam"]
+      },
+      "stock": {
+        "US-Central (Austin, TX)": 190,
+        "US-East (Harrisburg, PA)": 175,
+        "US-West (Mira Loma, CA)": 140
+      }
+    },
+    {
+      "sku": "IM-SW-SEC365",
+      "name": "CloudGuard Endpoint Security + MDM Suite (1-Year Seat License)",
+      "vendor": "CloudGuard",
+      "category": "software_warranty",
+      "tier": "standard",
+      "msrp": 110.00,
+      "reseller_cost": 78.00,
+      "specs": {
+        "license_type": "annual_per_seat",
+        "min_seats": 5,
+        "max_seats": 500,
+        "supported_os": ["Windows 11 Pro", "macOS"]
+      },
+      "stock": {
+        "US-Central (Austin, TX)": 9999,
+        "US-East (Harrisburg, PA)": 9999,
+        "US-West (Mira Loma, CA)": 9999
+      }
+    },
+    {
+      "sku": "IM-WAR-NBD3Y",
+      "name": "TotalCare 3-Year Next-Business-Day Onsite Hardware Support",
+      "vendor": "TotalCare Services",
+      "category": "software_warranty",
+      "tier": "standard",
+      "msrp": 95.00,
+      "reseller_cost": 62.00,
+      "specs": {
+        "coverage_years": 3,
+        "sla": "Next Business Day Onsite",
+        "attached_to": "laptop"
+      },
+      "stock": {
+        "US-Central (Austin, TX)": 9999,
+        "US-East (Harrisburg, PA)": 9999,
+        "US-West (Mira Loma, CA)": 9999
+      }
+    }
+  ]
+}

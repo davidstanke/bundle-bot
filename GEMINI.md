@@ -6,11 +6,7 @@
 ## Project Structure
 - `README.md` — Live demo script and walkthrough instructions.
 - `data/catalog.json` — Self-contained 12-SKU B2B distribution catalog with MSRP, reseller cost, power/display specs, regional warehouse inventory, and volume discount tiers.
-- `app/catalog_tools.py` — Deterministic Python helpers for SKU selection, technical/power compatibility validation, regional warehouse stock checks, and volume-tier / margin optimization.
-- `app/agent.py` — Root agent (`parse_requirements -> build_kit -> [validate_compatibility || check_warehouse_stock || optimize_margins] -> format_quote`) wrapped in `App(name="bundle_bot", root_agent=root_agent)`.
-- `app/agent_runtime_app.py` & `app/app_utils/deploy.py` — Vertex AI Agent Runtime (`AdkApp`) deployment entrypoint.
-- `tests/test_workflow.py` — Unit tests for catalog, compatibility, and tier-upsell math.
-- `tests/eval/` — ADK evaluation config (`eval_config.yaml`) and dataset (`datasets/bundle_bot_eval.json`).
+- `app/agent.py` — Root ADK agent (`App(name="bundle_bot", root_agent=root_agent)`).
 
 ## Conventions
 - Keep all catalog lookups self-contained against `data/catalog.json` (no external DB or API keys required).

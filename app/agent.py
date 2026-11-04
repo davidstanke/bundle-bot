@@ -1,8 +1,7 @@
 """Starter stub for BundleBot.
 
-On the `main` branch, this stub awaits `/plan`, `/grill-me`, and `/teamwork-preview`
+This starter stub awaits `/plan`, `/grill-me`, and `/teamwork-preview`
 to implement the full B2B kit-builder pipeline over `data/catalog.json`.
-Switch to the `solution` branch (`git checkout solution`) for the complete build.
 """
 
 from __future__ import annotations
@@ -15,8 +14,7 @@ def greet_partner() -> str:
   """Starter placeholder tool."""
   return (
       "BundleBot starter stub ready. Run `/plan`, `/grill-me`, and "
-      "`/teamwork-preview` or `git checkout solution` for the full "
-      "B2B Kit Builder."
+      "`/teamwork-preview` to build the full B2B Kit Builder."
   )
 
 

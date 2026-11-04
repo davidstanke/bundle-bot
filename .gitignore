@@ -7,3 +7,4 @@ __pycache__/
 .requirements.txt
 artifacts/
 app/.adk/session.db
+.agents/teamwork/

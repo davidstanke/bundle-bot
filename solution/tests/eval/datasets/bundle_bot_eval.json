@@ -1,0 +1,26 @@
+{
+  "eval_cases": [
+    {
+      "eval_case_id": "remote_work_24_austin_gold_upsell",
+      "prompt": {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Build a standard remote-work kit (laptop, dock, 27\" monitor, peripherals, security license, and 3-year warranty) for 24 new hires shipping to Austin under $45,000."
+          }
+        ]
+      }
+    },
+    {
+      "eval_case_id": "performance_studio_10_harrisburg",
+      "prompt": {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Quote a 10-person performance studio kit shipping to Harrisburg and verify dock wattage and warehouse stock."
+          }
+        ]
+      }
+    }
+  ]
+}

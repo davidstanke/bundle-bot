@@ -16,7 +16,7 @@ export GOOGLE_CLOUD_PROJECT="$(gcloud config get-value project)"
 export GOOGLE_CLOUD_LOCATION="us-central1"
 export GEMINI_ENTERPRISE_APP_ID="$(agents-cli publish gemini --list 2>/dev/null | tail -n 1 | jq -r '.apps[0].name')"
 
-# 3. Start on the `main` starter branch (has data/catalog.json + minimal stub)
+# 3. Start in the repository root on `main` (has data/catalog.json + minimal starter stub)
 git checkout main
 ```
 
@@ -41,7 +41,7 @@ Show the local running agent UI.
 Paste into **Antigravity App**:
 
 ```text
-/plan We want to turn this starter project into "BundleBot", a B2B IT Kit Builder and Margin Optimizer over `data/catalog.json` using an ADK `SequentialAgent` + `ParallelAgent` pipeline: run `parse_requirements` and `build_kit` sequentially, then run `validate_compatibility`, `check_warehouse_stock`, and `optimize_margins` in parallel via `ParallelAgent`, and finally run `format_quote` (with `LlmAgent` sub-agents passing state via `output_key`).
+[/plan](slashCommand;plan) We want to turn this starter project into "BundleBot", a B2B IT Kit Builder and Margin Optimizer over `data/catalog.json` using an ADK `SequentialAgent` + `ParallelAgent` pipeline: run `parse_requirements` and `build_kit` sequentially, then run `validate_compatibility`, `check_warehouse_stock`, and `optimize_margins` in parallel via `ParallelAgent`, and finally run `format_quote` (with `LlmAgent` sub-agents passing state via `output_key`).
 ```
 
 *Review the generated ADK 1.0-style `SequentialAgent` + `ParallelAgent` plan artifact.*
@@ -50,19 +50,18 @@ Paste into **Antigravity App**:
 Paste into **Antigravity App**:
 
 ```text
-/grill-me Let's upgrade our implementation plan from an ADK 1.0 `SequentialAgent` + `ParallelAgent` hierarchy to an ADK 2.0 Graph `Workflow` (`START -> parse_requirements -> build_kit -> (validate_compatibility || check_warehouse_stock || optimize_margins) -> join_checks -> format_quote`). Use the Google Developer Knowledge plugin if you need ADK 2.0 `Workflow` and `JoinNode` syntax. Interview me on using `LlmAgent` nodes for the natural-language stages and deterministic Python function nodes for the 3 parallel branches, plus our compatibility rules, volume-tier upsell math, and output format, then update the plan artifact in place.
+[/grill-me](slashCommand;grill-me) Let's upgrade our implementation plan from an ADK 1.0 `SequentialAgent` + `ParallelAgent` hierarchy to an ADK 2.0 Graph `Workflow` (`START -> parse_requirements -> build_kit -> (validate_compatibility || check_warehouse_stock || optimize_margins) -> join_checks -> format_quote`). Use the Google Developer Knowledge plugin if you need ADK 2.0 `Workflow` and `JoinNode` syntax. Interview me on using `LlmAgent` nodes for the natural-language stages and deterministic Python function nodes for the 3 parallel branches, plus our compatibility rules, volume-tier upsell math, and output format, then update the plan artifact in place.
 ```
 
 *Answer the Socratic interview questions one by one to refine the plan artifact to an ADK 2.0 diamond Graph `Workflow`.*
+
+"Now, I could click `Proceed` here, but I want to use this as an opportunity to show off one of the newer features in Antigravity..."
 
 ### 4. Multi-Agent Parallel Build with `/teamwork-preview`
 Proceed to implement in **Antigravity App**:
 
 ```text
-/teamwork-preview Implement the approved plan:
-1. Build deterministic catalog lookup, hardware/power compatibility (`validate_compatibility`), regional warehouse inventory (`check_warehouse_stock`), and volume-tier upsell (`optimize_margins`) functions in `app/catalog_tools.py`.
-2. Build the ADK 2.0 diamond `Workflow` (`START -> parse_requirements -> build_kit -> (validate_compatibility, check_warehouse_stock, optimize_margins) -> join_checks -> format_quote`) in `app/agent.py`.
-3. Add unit tests in `tests/test_workflow.py` and an evaluation dataset in `tests/eval/datasets/bundle_bot_eval.json`.
+/teamwork-preview Implement the plan.
 ```
 
 *(Show the Orchestrator decomposing milestones and spawning Explorers, Workers, and Critics in parallel. While the team works, transition to the terminal for Act II.)*
@@ -71,18 +70,17 @@ Proceed to implement in **Antigravity App**:
 
 ## Act II: Antigravity CLI (`agy`) — Cooking-Show Cut, Evals, and `/learn`
 
-### 1. Switch to the Pre-Baked `solution` Branch & Test Locally
-In your terminal:
+### 1. Switch to the Pre-Baked `solution` Folder & Test Locally
+In your terminal, move into the `solution` folder and launch **Antigravity CLI**:
 
 ```bash
-git checkout solution
-agents-cli playground
+cd solution
+agy
 ```
 
-Open `http://127.0.0.1:8080/dev-ui/?app=app` and test with:
-
-```text
-Build a standard remote-work kit (laptop, dock, 27" monitor, peripherals, security license, and 3-year warranty) for 24 new hires shipping to Austin under $45,000.
+In AGY,
+```
+run the agent locally on an unused port between 8080 and 8180
 ```
 
 > **Highlight in the Playground UI:**
@@ -91,11 +89,7 @@ Build a standard remote-work kit (laptop, dock, 27" monitor, peripherals, securi
 > - **Margin & Tier Optimizer:** Spots that ordering **25 kits instead of 24** crosses into the **Gold Partner Tier (12% off)**, reducing the customer's total price while increasing reseller margin dollars.
 
 ### 2. Run Evals in `agy` CLI & Capture Institutional Memory with `/learn`
-Launch **Antigravity CLI**:
 
-```bash
-agy
-```
 
 Prompt inside `agy` CLI:
 
@@ -108,7 +102,7 @@ Run our ADK evaluation suite using `agents-cli eval run` against `tests/eval/dat
 Now persist that operational lesson with **`/learn`** inside `agy` CLI:
 
 ```text
-/learn Whenever we scaffold or maintain an `agents-cli` ADK 2.0 project in this repo, always promote `google-adk[eval]>=2.0.0a1` into main `[project.dependencies]` in `pyproject.toml` so `agents-cli eval run` and `agents-cli playground` never strip the eval extra on `uv run`.
+/learn
 ```
 
 ---
