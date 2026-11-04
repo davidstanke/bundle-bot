@@ -5,6 +5,8 @@ __pycache__/
 .ruff_cache/
 .agents-cli-scripts/
 .requirements.txt
+.env
 artifacts/
+.google-agents-cli/
 app/.adk/session.db
 .agents/teamwork/

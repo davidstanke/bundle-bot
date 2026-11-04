@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
+import os
 from typing import Any
 
+import google.auth
 from google.adk.agents import LlmAgent
 from google.adk.apps import App
 from google.adk.events.event import Event
@@ -19,6 +21,17 @@ from app.catalog_tools import (
     select_default_kit_skus,
     validate_compatibility as run_compatibility_check,
 )
+
+# Use Google Cloud Application Default Credentials (ADC) via Vertex AI
+# rather than a Gemini API key.
+try:
+  _, _default_project = google.auth.default()
+  if _default_project:
+    os.environ.setdefault("GOOGLE_CLOUD_PROJECT", _default_project)
+except Exception:
+  pass
+os.environ.setdefault("GOOGLE_CLOUD_LOCATION", "us-central1")
+os.environ.setdefault("GOOGLE_GENAI_USE_VERTEXAI", "true")
 
 MODEL_ID = "gemini-2.5-flash"
 

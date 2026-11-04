@@ -11,7 +11,10 @@
 # 1. Install agents-cli and its 7 ADK lifecycle skills
 uvx google-agents-cli setup
 
-# 2. Export your demo GCP project & pre-warmed Agent Runtime / Gemini Enterprise IDs
+# 2. Authenticate with Google Cloud ADC & export demo project settings
+# (BundleBot uses Application Default Credentials via Vertex AI instead of Gemini API keys)
+gcloud auth application-default login
+export GOOGLE_GENAI_USE_VERTEXAI="true"
 export GOOGLE_CLOUD_PROJECT="$(gcloud config get-value project)"
 export GOOGLE_CLOUD_LOCATION="us-central1"
 export GEMINI_ENTERPRISE_APP_ID="$(agents-cli publish gemini --list 2>/dev/null | tail -n 1 | jq -r '.apps[0].name')"

@@ -10,4 +10,5 @@
 
 ## Conventions
 - Keep all catalog lookups self-contained against `data/catalog.json` (no external DB or API keys required).
+- Use Google Cloud Application Default Credentials (ADC) via Vertex AI (`GOOGLE_GENAI_USE_VERTEXAI=true`) rather than Gemini API keys.
 - Use Pydantic `BaseModel` schemas (`output_schema`) for structured state transitions between pipeline stages.
