@@ -3,29 +3,47 @@ name = "bundle-bot"
 version = "0.1.0"
 description = "BundleBot: B2B Tech Kit Builder & Margin Optimizer (ADK 2.0 Workflow)"
 readme = "README.md"
-requires-python = ">=3.11"
+authors = [
+    {name = "Your Name", email = "your@email.com"},
+]
 dependencies = [
-    "google-adk>=2.0.0a1",
-    "google-cloud-aiplatform[agent-engines,adk]>=1.129.0",
-    "pydantic>=2.7.0",
+    "google-adk[gcp,otel-gcp,bigquery-analytics]>=2.12.0,<3.0.0",
+    "opentelemetry-resourcedetector-gcp<=1.12.0a0",
+    "gcsfs>=2026.10.0",
+    "a2a-sdk[http-server]>=1.0,<2",
+    "aiohttp>=3.13.4",
+    "google-cloud-logging>=3.12.0,<4.0.0",
+    "google-cloud-agentplatform[agent-engines]>=2.2.0,<3.0.0",
+    "google-cloud-aiplatform[evaluation]>=2.2.0,<3.0.0",
+    "protobuf>=6.31.1,<7.0.0",
+]
+requires-python = ">=3.11,<3.14"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2,<10.0.0",
+    "pytest-asyncio>=1.0.0,<2.0.0",
+    "nest-asyncio>=1.6.0,<2.0.0",
 ]
 
 [project.optional-dependencies]
-dev = [
-    "pytest>=8.0.0",
-    "pytest-asyncio>=0.23.0",
-    "ruff>=0.4.0",
-]
 eval = [
-    "google-adk[eval]>=2.0.0a1",
+    "google-adk[eval]>=2.12.0,<3.0.0",
+    "google-cloud-aiplatform[evaluation]>=2.2.0,<3.0.0",
+]
+lint = [
+    "ruff>=0.4.6,<1.0.0",
+    "ty>=0.0.1a0",
+    "codespell>=2.2.0,<3.0.0",
 ]
 
-[tool.agents-cli]
-agent = "adk"
-deployment_target = "agent_runtime"
-is_a2a = false
-project_name = "bundle-bot"
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
-asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "session"
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]
