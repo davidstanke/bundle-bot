@@ -61,7 +61,7 @@ Paste into **Antigravity App**:
 Proceed to implement in **Antigravity App**:
 
 ```text
-/teamwork-preview Implement the plan.
+/teamwork-preview Implement the plan. Use the `pro` model for architectural design, security review, and complex core logic subagents, and use `flash` for subagents handling well-specified implementation tasks, boilerplate updates, documentation, and test execution.
 ```
 
 *(Show the Orchestrator decomposing milestones and spawning Explorers, Workers, and Critics in parallel. While the team works, transition to the terminal for Act II.)*
