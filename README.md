@@ -22,7 +22,7 @@ git checkout main
 
 ---
 
-## Act I: Antigravity App ("2.0") — Plugins, `/grill-me`, and `/teamwork-preview`
+## Act I: Antigravity App ("2.0") — Plugins, `/grill-me`, and `/teamwork`
 
 ### 0. Run the agent locally
 In **Antigravity App**, start a new conversation in a new git worktree. Enter the prompt:
@@ -57,11 +57,11 @@ Paste into **Antigravity App**:
 
 "Now, I could click `Proceed` here, but I want to use this as an opportunity to show off one of the newer features in Antigravity..."
 
-### 4. Multi-Agent Parallel Build with `/teamwork-preview`
+### 4. Multi-Agent Parallel Build with `/teamwork`
 Proceed to implement in **Antigravity App**:
 
 ```text
-/teamwork-preview Implement the plan. Use the `pro` model for architectural design, security review, and complex core logic subagents, and use `flash` for subagents handling well-specified implementation tasks, boilerplate updates, documentation, and test execution.
+/teamwork Implement the plan. Use the `pro` model for architectural design, security review, and complex core logic subagents, and use `flash` for subagents handling well-specified implementation tasks, boilerplate updates, documentation, and test execution.
 ```
 
 *(Show the Orchestrator decomposing milestones and spawning Explorers, Workers, and Critics in parallel. While the team works, transition to the terminal for Act II.)*
