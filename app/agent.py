@@ -1,27 +1,34 @@
-"""Starter stub for BundleBot (ADK 2.0 Workflow).
+"""Starter stub for BundleBot.
 
-On the `main` branch, this stub awaits `/grill-me` and `/teamwork-preview`
-to implement the full B2B kit-builder workflow over `data/catalog.json`.
+On the `main` branch, this stub awaits `/plan`, `/grill-me`, and `/teamwork-preview`
+to implement the full B2B kit-builder pipeline over `data/catalog.json`.
 Switch to the `solution` branch (`git checkout solution`) for the complete build.
 """
 
 from __future__ import annotations
 
+from google.adk.agents import Agent
 from google.adk.apps import App
-from google.adk.workflow import Workflow
 
 
-def greet_partner(node_input: str) -> str:
-  """Starter placeholder node."""
+def greet_partner() -> str:
+  """Starter placeholder tool."""
   return (
-      "BundleBot starter stub ready. Run `/grill-me` and `/teamwork-preview` "
-      "or `git checkout solution` for the full ADK 2.0 B2B Kit Workflow."
+      "BundleBot starter stub ready. Run `/plan`, `/grill-me`, and "
+      "`/teamwork-preview` or `git checkout solution` for the full "
+      "B2B Kit Builder."
   )
 
 
-root_agent = Workflow(
-    name="bundle_bot_workflow",
-    edges=[("START", greet_partner)],
+root_agent = Agent(
+    name="bundle_bot",
+    model="gemini-2.5-flash",
+    description="Starter stub for BundleBot B2B IT Kit Builder.",
+    instruction=(
+        "You are BundleBot, a B2B IT kit advisor. Call `greet_partner` to "
+        "confirm the starter stub is running."
+    ),
+    tools=[greet_partner],
 )
 
 app = App(
