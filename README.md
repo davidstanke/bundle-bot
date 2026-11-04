@@ -1,6 +1,9 @@
 # BundleBot — B2B Tech Kit & Margin Optimizer
 
-**Scenario:** A channel reseller asks in natural language: *"Build a remote-work hardware + software kit for 24 new hires under \$45k shipping to Austin."*
+**Scenario:** A channel reseller asks in natural language: 
+```
+Build a remote-work hardware + software kit for 24 new hires under \$45k shipping to Austin.
+```
 **BundleBot** (built with **ADK 2.0 Graph Workflows**) parses requirements, selects SKUs from `data/catalog.json`, fans out in parallel to validate hardware/power compatibility, check regional warehouse stock, and optimize reseller margins—flagging when adding 1–2 units unlocks the **Gold 25+ Volume Tier (12% off)** for a lower total price—and joins the results into a final partner quote.
 
 ---
@@ -25,9 +28,21 @@ git checkout main
 
 ---
 
+## Act 0: Show the published agent
+Visit Gemini Enterprise App and navigate to BundleBot. Enter the following prompt:
+```
+Build a remote-work hardware + software kit for 24 new hires under \$45k shipping to Austin.
+```
+
 ## Act I: Antigravity App ("2.0") — Plugins, `/grill-me`, and `/teamwork`
 
-### 0. Run the agent locally
+### 0. Bootstrap an agent and run locally
+_in a temp dir, run:_
+```
+agents-cli create -i
+```
+...and follow the prompts
+
 In **Antigravity App**, start a new conversation in a new git worktree. Enter the prompt:
 ```
 Run the agent locally on an unused port between 8080 and 8180
@@ -64,7 +79,7 @@ Paste into **Antigravity App**:
 Proceed to implement in **Antigravity App**:
 
 ```text
-/teamwork Implement the plan. Use the `pro` model for architectural design, security review, and complex core logic subagents, and use `flash` for subagents handling well-specified implementation tasks, boilerplate updates, documentation, and test execution.
+[/teamwork](slashCommand;teamwork) Implement the plan. Use the `pro` model for architectural design, security review, and complex core logic subagents, and use `flash` for subagents handling well-specified implementation tasks, boilerplate updates, documentation, and test execution.
 ```
 
 *(Show the Orchestrator decomposing milestones and spawning Explorers, Workers, and Critics in parallel. While the team works, transition to the terminal for Act II.)*
