@@ -10,7 +10,11 @@ def __getattr__(name: str) -> Any:
     from . import agent as _agent
 
     return _agent
+  if name == "app":
+    from .agent import app as _app
+
+    return _app
   raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
 
-__all__ = ["agent"]
+__all__ = ["agent", "app"]
