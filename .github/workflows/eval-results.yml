@@ -1,0 +1,86 @@
+name: BundleBot Eval Results
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+    paths:
+      - "solution/**"
+      - ".github/workflows/eval-results.yml"
+      - ".github/scripts/post_eval_results.py"
+
+concurrency:
+  group: agy-eval-results-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+  id-token: write
+
+jobs:
+  eval:
+    name: Run Agent Eval Suite
+    # Skip drafts and fork PRs (forks cannot use the Workload Identity secrets).
+    if: >-
+      github.event.pull_request.draft == false &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GOOGLE_GENAI_USE_VERTEXAI: "true"
+      GOOGLE_CLOUD_PROJECT: ${{ secrets.GCP_PROJECT_ID }}
+      GOOGLE_CLOUD_LOCATION: "us-central1"
+      # Gate on each metric's mean_score. Format: metric=min,metric=min
+      # custom_response_quality is scored 1-5; domain_rubric_pass_rate is 0-1.
+      EVAL_THRESHOLDS: "custom_response_quality=4.0,domain_rubric_pass_rate=0.9"
+    steps:
+      - name: Checkout PR Branch
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud (Vertex AI WIF)
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: Set up uv with Dependency Caching
+        uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
+          cache-dependency-glob: "solution/uv.lock"
+
+      - name: Install agent dependencies
+        working-directory: solution
+        run: uv sync --frozen --extra eval
+
+      - name: Install agents-cli
+        run: uv tool install google-agents-cli==1.12.0
+
+      - name: Run eval suite
+        id: eval
+        # Don't fail here: results are posted (and the job gated) in the final step.
+        continue-on-error: true
+        working-directory: solution
+        run: agents-cli eval run --config tests/eval/eval_config.yaml
+
+      - name: Upload eval artifacts
+        id: upload
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bundle-bot-eval-results
+          path: solution/artifacts/
+          retention-days: 14
+          if-no-files-found: warn
+
+      - name: Post eval results and enforce thresholds
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          ARTIFACT_URL: ${{ steps.upload.outputs.artifact-url }}
+          EVAL_OUTCOME: ${{ steps.eval.outcome }}
+        run: uv run --no-project --with PyGithub python .github/scripts/post_eval_results.py
