@@ -1,4 +1,4 @@
-# BundleBot — Pre-Built Solution (`solution/`)
+# BundleBot — ✔️ Pre-Built Solution (`solution/`)
 
 This directory contains the complete pre-built **BundleBot** ADK 2.0 Diamond Graph `Workflow` implementation, deterministic catalog tools (`app/catalog_tools.py`), unit tests (`tests/test_workflow.py`), and evaluation suite (`tests/eval/`).
 
