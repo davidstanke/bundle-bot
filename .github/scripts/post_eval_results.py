@@ -179,6 +179,23 @@ def upsert_sticky_comment(pr, body: str) -> None:
     print("Posted new eval results comment.")
 
 
+def publish_report(body: str) -> None:
+    """Writes the report to the job summary and, when a PR number is known, the PR comment."""
+    summary_file = os.environ.get("GITHUB_STEP_SUMMARY")
+    if summary_file:
+        with open(summary_file, "a", encoding="utf-8") as f:
+            f.write(body)
+
+    pr_number = os.environ.get("PR_NUMBER", "").strip()
+    if not pr_number:
+        print("No PR number provided (manual run); skipping PR comment.")
+        print(body)
+        return
+    gh = Github(auth=Auth.Token(os.environ["GITHUB_TOKEN"]))
+    pr = gh.get_repo(os.environ["GITHUB_REPOSITORY"]).get_pull(int(pr_number))
+    upsert_sticky_comment(pr, body)
+
+
 def main() -> int:
     results_dir = Path(os.environ.get("EVAL_RESULTS_DIR", "solution/artifacts/grade_results"))
     thresholds = parse_thresholds(os.environ.get("EVAL_THRESHOLDS"))
@@ -196,9 +213,7 @@ def main() -> int:
         eval_outcome=os.environ.get("EVAL_OUTCOME", "unknown"),
     )
 
-    gh = Github(auth=Auth.Token(os.environ["GITHUB_TOKEN"]))
-    pr = gh.get_repo(os.environ["GITHUB_REPOSITORY"]).get_pull(int(os.environ["PR_NUMBER"]))
-    upsert_sticky_comment(pr, body)
+    publish_report(body)
 
     if results is None:
         print(f"No eval results found in {results_dir}.", file=sys.stderr)

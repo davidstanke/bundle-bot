@@ -7,9 +7,16 @@ on:
       - "solution/**"
       - ".github/workflows/eval-results.yml"
       - ".github/scripts/post_eval_results.py"
+  # Manual runs report to the job summary. Pass pr_number to also post to that PR.
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: "Optional PR number to post the results comment to"
+        required: false
+        type: string
 
 concurrency:
-  group: agy-eval-results-${{ github.event.pull_request.number }}
+  group: agy-eval-results-${{ github.event.pull_request.number || github.run_id }}
   cancel-in-progress: true
 
 permissions:
@@ -22,8 +29,9 @@ jobs:
     name: Run Agent Eval Suite
     # Skip drafts and fork PRs (forks cannot use the Workload Identity secrets).
     if: >-
-      github.event.pull_request.draft == false &&
-      github.event.pull_request.head.repo.full_name == github.repository
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.pull_request.draft == false &&
+      github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
@@ -78,8 +86,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           ARTIFACT_URL: ${{ steps.upload.outputs.artifact-url }}
           EVAL_OUTCOME: ${{ steps.eval.outcome }}
