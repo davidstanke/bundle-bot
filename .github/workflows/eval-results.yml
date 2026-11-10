@@ -77,7 +77,10 @@ jobs:
         # Don't fail here: results are posted (and the job gated) in the final step.
         continue-on-error: true
         working-directory: solution
-        run: agents-cli eval run --config tests/eval/eval_config.yaml
+        run: >-
+          agents-cli eval run
+          --dataset tests/eval/datasets/bundle_bot_eval.json
+          --config tests/eval/eval_config.yaml
 
       - name: Upload eval artifacts
         id: upload
