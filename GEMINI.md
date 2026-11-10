@@ -1,4 +1,4 @@
-# BundleBot — Coding Agent Context (`GEMINI.md`)
+# BundleBot 📦🤖 — Coding Agent Context (`GEMINI.md`)
 
 ## Overview
 **BundleBot** is an ADK agent for B2B technology distribution. It helps channel resellers configure hardware + software kits from `data/catalog.json`, verifies technical & power compatibility, checks regional warehouse stock, and optimizes partner margins and volume discount tiers.
