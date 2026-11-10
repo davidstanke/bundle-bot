@@ -9,6 +9,62 @@
             "text": "Build a standard remote-work kit (laptop, dock, 27\" monitor, peripherals, security license, and 3-year warranty) for 24 new hires shipping to Austin under $45,000."
           }
         ]
+      },
+      "reference": {
+        "response": {
+          "role": "model",
+          "parts": [
+            {
+              "text": "Standard Remote-Work Kit Quote (24 Kits -> US-Central Austin, TX Warehouse, $45,000.00 Budget):\n\n1. Selected SKU Bill of Materials (Standard Tier, Qty 24):\n- IM-LPT-PRO14: ApexBook Pro 14 (Core Ultra 7, 16GB, 512GB) — $1,120.00 MSRP / $920.00 reseller cost (65W USB-C power required)\n- IM-DCK-100W: ConnectHub Pro Thunderbolt 4 Dock (100W PD) — $220.00 MSRP / $162.00 reseller cost\n- IM-MON-27QHD: ClearView 27\" QHD IPS Ergonomic Monitor — $260.00 MSRP / $198.00 reseller cost\n- IM-PER-COMBO: ErgoType Wireless Keyboard & Precision Mouse Combo — $85.00 MSRP / $60.00 reseller cost\n- IM-SW-SEC365: CloudGuard Endpoint Security + MDM Suite (1-Year Seat License) — $110.00 MSRP / $78.00 reseller cost\n- IM-WAR-NBD3Y: TotalCare 3-Year Next-Business-Day Onsite Hardware Support — $95.00 MSRP / $62.00 reseller cost\n\n2. Technical & Power Compatibility Verdict:\n- PASS: IM-DCK-100W delivers 100W USB-C PD (>= 65W required by IM-LPT-PRO14). Display interfaces (HDMI / DisplayPort 1.4) match IM-MON-27QHD, and 24 seats satisfy IM-SW-SEC365 seat bounds (5–500 seats).\n\n3. Regional Warehouse Fulfillment Status:\n- IN STOCK at US-Central (Austin, TX): All 6 SKUs have sufficient inventory for 24 kits (IM-LPT-PRO14: 120, IM-DCK-100W: 90, IM-MON-27QHD: 160, IM-PER-COMBO: 300, IM-SW-SEC365: 9999, IM-WAR-NBD3Y: 9999; lowest SKU stock: 90 units).\n\n4. Pricing & Partner Margin Summary (24 Kits):\n- Unit MSRP: $1,890.00 | Unit Reseller Cost: $1,480.00\n- Applied Volume Tier: Silver Partner (10+) at 5% discount ($1,795.50 customer unit price)\n- Customer Total Price: $43,092.00 (Within the $45,000.00 budget)\n- Reseller Total Cost: $33,252.00 | Reseller Margin: $9,840.00 (22.8%)\n\n5. Volume-Tier Upsell Recommendation (24 -> 25 Kits for Gold Partner Tier):\n- RECOMMENDED: Ordering 25 kits (+1 kit) unlocks the Gold Partner (25+) tier (12% discount), lowering the customer total price to $41,580.00 (saving the customer $1,512.00 vs. 24 kits) while increasing reseller margin to $10,250.00 (+$410.00 margin gain)."
+            }
+          ]
+        }
+      },
+      "rubric_groups": {
+        "domain_rubrics": {
+          "rubrics": [
+            {
+              "rubric_id": "standard_kit_skus",
+              "content": {
+                "property": {
+                  "description": "Includes the 6 standard-tier kit SKUs: IM-LPT-PRO14, IM-DCK-100W (or compatible 65W+ dock), IM-MON-27QHD, IM-PER-COMBO, IM-SW-SEC365, and IM-WAR-NBD3Y for 24 kits."
+                }
+              }
+            },
+            {
+              "rubric_id": "power_and_technical_compatibility",
+              "content": {
+                "property": {
+                  "description": "Confirms power and technical compatibility passes (dock 100W PD >= laptop 65W required, display interfaces compatible, and 24 software seats within 5-500 limits)."
+                }
+              }
+            },
+            {
+              "rubric_id": "austin_warehouse_stock",
+              "content": {
+                "property": {
+                  "description": "Verifies all selected SKUs are in stock at the US-Central (Austin, TX) warehouse for 24 kits."
+                }
+              }
+            },
+            {
+              "rubric_id": "pricing_and_budget_check",
+              "content": {
+                "property": {
+                  "description": "Reports unit MSRP ($1,890.00), Silver Partner (10+) 5% discount tier, customer total of $43,092.00 (confirming it is under the $45,000 budget), and reseller margin of $9,840.00 (22.8%)."
+                }
+              }
+            },
+            {
+              "rubric_id": "gold_tier_25_unit_upsell",
+              "content": {
+                "property": {
+                  "description": "Recommends upselling from 24 to 25 kits to unlock the Gold Partner (25+) 12% discount tier, reducing the customer total to $41,580.00 ($1,512.00 customer savings) and increasing reseller margin to $10,250.00 (+$410.00)."
+                }
+              }
+            }
+          ]
+        }
       }
     },
     {
@@ -20,6 +76,54 @@
             "text": "Quote a 10-person performance studio kit shipping to Harrisburg and verify dock wattage and warehouse stock."
           }
         ]
+      },
+      "reference": {
+        "response": {
+          "role": "model",
+          "parts": [
+            {
+              "text": "Performance Studio Kit Quote (10 Kits -> US-East Harrisburg, PA Warehouse):\n\n1. Selected SKU Bill of Materials (Performance Tier, Qty 10):\n- IM-LPT-ULT16: ApexBook Studio 16 (Core Ultra 9, 32GB, 1TB, RTX) — $1,850.00 MSRP / $1,480.00 reseller cost (100W USB-C power required)\n- IM-DCK-100W: ConnectHub Pro Thunderbolt 4 Dock (100W PD) — $220.00 MSRP / $162.00 reseller cost\n- IM-MON-32UHD: ClearView Ultra 32\" 4K Creator Display — $480.00 MSRP / $370.00 reseller cost\n- IM-PER-COMBO: ErgoType Wireless Keyboard & Precision Mouse Combo — $85.00 MSRP / $60.00 reseller cost\n- IM-SW-SEC365: CloudGuard Endpoint Security + MDM Suite (1-Year Seat License) — $110.00 MSRP / $78.00 reseller cost\n- IM-WAR-NBD3Y: TotalCare 3-Year Next-Business-Day Onsite Hardware Support — $95.00 MSRP / $62.00 reseller cost\n\n2. Technical & Dock Wattage Compatibility Verdict:\n- PASS: IM-DCK-100W delivers 100W USB-C Power Delivery, matching the 100W power requirement of the IM-LPT-ULT16 performance laptop. Display ports (HDMI 2.1 / DisplayPort 1.4 / USB-C) match IM-MON-32UHD, and 10 software seats are within the 5–500 seat bounds.\n\n3. Regional Warehouse Fulfillment Status:\n- IN STOCK at US-East (Harrisburg, PA): All 6 SKUs are in stock for 10 kits (IM-LPT-ULT16: 40, IM-DCK-100W: 110, IM-MON-32UHD: 60, IM-PER-COMBO: 250, IM-SW-SEC365: 9999, IM-WAR-NBD3Y: 9999; lowest SKU stock: 40 units).\n\n4. Pricing & Partner Margin Summary (10 Kits):\n- Unit MSRP: $2,840.00 | Unit Reseller Cost: $2,212.00\n- Applied Volume Tier: Silver Partner (10+) at 5% discount ($2,698.00 customer unit price)\n- Customer Total Price: $26,980.00\n- Reseller Total Cost: $20,700.00 | Reseller Margin: $6,280.00 (23.3%)\n- Volume-Tier Upsell: Not recommended at 10 units (next tier threshold is 25 units for Gold Partner 12% off)."
+            }
+          ]
+        }
+      },
+      "rubric_groups": {
+        "domain_rubrics": {
+          "rubrics": [
+            {
+              "rubric_id": "performance_kit_skus",
+              "content": {
+                "property": {
+                  "description": "Includes the 6 performance-tier kit SKUs: IM-LPT-ULT16, IM-DCK-100W, IM-MON-32UHD, IM-PER-COMBO, IM-SW-SEC365, and IM-WAR-NBD3Y for 10 kits."
+                }
+              }
+            },
+            {
+              "rubric_id": "dock_100w_wattage_verification",
+              "content": {
+                "property": {
+                  "description": "Explicitly verifies dock wattage compatibility: IM-DCK-100W provides 100W PD, meeting the 100W requirement of the IM-LPT-ULT16 laptop."
+                }
+              }
+            },
+            {
+              "rubric_id": "harrisburg_warehouse_stock",
+              "content": {
+                "property": {
+                  "description": "Verifies all selected SKUs are in stock at the US-East (Harrisburg, PA) warehouse for 10 kits (lowest stock is 40 units for IM-LPT-ULT16)."
+                }
+              }
+            },
+            {
+              "rubric_id": "performance_pricing_and_margin",
+              "content": {
+                "property": {
+                  "description": "Reports unit MSRP ($2,840.00), Silver Partner (10+) 5% discount tier, customer total price of $26,980.00, and reseller margin of $6,280.00 (23.3%)."
+                }
+              }
+            }
+          ]
+        }
       }
     }
   ]

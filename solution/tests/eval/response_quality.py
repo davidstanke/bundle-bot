@@ -1,7 +1,9 @@
 """Local LLM-as-judge for `custom_response_quality` (see eval_config.yaml)."""
 
+import os
 import threading
 
+import google.auth
 from google import genai
 from google.genai import types
 from pydantic import BaseModel
@@ -25,6 +27,19 @@ def _client() -> genai.Client:
     """
     client = getattr(_local, "client", None)
     if client is None:
+        if (
+            "GEMINI_API_KEY" not in os.environ
+            and "GOOGLE_API_KEY" not in os.environ
+        ):
+            os.environ.setdefault("GOOGLE_GENAI_USE_VERTEXAI", "true")
+            os.environ.setdefault("GOOGLE_CLOUD_LOCATION", "us-central1")
+            if "GOOGLE_CLOUD_PROJECT" not in os.environ:
+                try:
+                    _, default_project = google.auth.default()
+                    if default_project:
+                        os.environ.setdefault("GOOGLE_CLOUD_PROJECT", default_project)
+                except Exception:
+                    pass
         # AI Studio (GEMINI_API_KEY) or Gemini platform (ADC).
         client = _local.client = genai.Client()
     return client
@@ -32,6 +47,13 @@ def _client() -> genai.Client:
 
 def evaluate(instance):
     reference = instance.get("reference")
+    rubric_groups = instance.get("rubric_groups") or {}
+    case_rubrics = [
+        f"- [{r.get('rubric_id', 'criterion')}] {r['content']['property']['description']}"
+        for group in rubric_groups.values()
+        for r in group.get("rubrics", [])
+        if "content" in r and "property" in r["content"]
+    ]
     rubric = (
         "Grade the agent's final response on a 1-5 scale (1 poor, 5 excellent) for "
         "accuracy, relevance, and clarity."
@@ -41,6 +63,11 @@ def evaluate(instance):
             " The response should agree with the expected answer below; penalize "
             "factual disagreement with it."
         )
+    if case_rubrics:
+        rubric += (
+            " Verify that the response satisfies every case-specific domain rubric "
+            "listed below."
+        )
     prompt = (
         f"You are an expert QA evaluator for an enterprise AI assistant. {rubric}\n"
         f"User Prompt: {instance.get('prompt', '')}\n"
@@ -48,6 +75,8 @@ def evaluate(instance):
     )
     if reference:
         prompt += f"Expected Answer (ground truth): {reference}\n"
+    if case_rubrics:
+        prompt += "Case-Specific Domain Rubrics:\n" + "\n".join(case_rubrics) + "\n"
     prompt += f"Full Agent Trace: {instance.get('agent_data', '')}\n"
 
     response = _client().models.generate_content(

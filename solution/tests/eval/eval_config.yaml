@@ -1,11 +1,16 @@
 metrics_to_run:
   - custom_response_quality
+  - domain_rubric_pass_rate
 
 custom_metrics:
   # Default: local LLM-as-judge (see response_quality.py). Runs in-process via
   # google-genai on Gemini platform (ADC) or Google AI Studio (GEMINI_API_KEY).
   - name: custom_response_quality
     custom_function_file: response_quality.py
+  # Per-case domain rubric evaluator (verifying SKU selection, 24->25 Gold tier
+  # upsell math, 100W dock wattage, and Austin/Harrisburg warehouse stock).
+  - name: domain_rubric_pass_rate
+    custom_function_file: domain_rubrics.py
   - name: agent_turn_count
     custom_function: |
       def evaluate(instance):
