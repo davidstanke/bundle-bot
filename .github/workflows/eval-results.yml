@@ -59,7 +59,15 @@ jobs:
 
       - name: Install agent dependencies
         working-directory: solution
-        run: uv sync --frozen --extra eval
+        # solution/uv.lock pins every package to an internal mirror that GitHub-hosted
+        # runners cannot reach, and uv reuses those URLs even with a different default
+        # index. Discard the lock on the (ephemeral) runner and resolve from public PyPI.
+        # NOTE: this means CI uses the newest compatible versions, not the locked ones.
+        env:
+          UV_DEFAULT_INDEX: https://pypi.org/simple
+        run: |
+          rm -f uv.lock
+          uv sync --extra eval
 
       - name: Install agents-cli
         run: uv tool install google-agents-cli==1.12.0
