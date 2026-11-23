@@ -34,7 +34,7 @@ Visit Gemini Enterprise App and navigate to BundleBot. Enter the following promp
 Build a remote-work hardware + software kit for 24 new hires under \$45k shipping to Austin.
 ```
 
-## Act I: Antigravity App ("2.0") — Plugins, `/grill-me`, and `/teamwork`
+## Act I: Antigravity App ("2.0") — Plugins, `/grill-me`, and `/swarm`
 
 ### 0. Bootstrap an agent and run locally
 _in a temp dir, run:_
@@ -75,14 +75,19 @@ Paste into **Antigravity App**:
 
 "Now, I could click `Proceed` here, but I want to use this as an opportunity to show off one of the newer features in Antigravity..."
 
-### 4. Multi-Agent Parallel Build with `/teamwork`
+### 4. Multi-Agent Parallel Build with `/swarm`
 Proceed to implement in **Antigravity App**:
 
 ```text
-[/teamwork](slashCommand;teamwork) Implement the plan. Use the `pro` model for architectural design, security review, and complex core logic subagents, and use `flash` for subagents handling well-specified implementation tasks, boilerplate updates, documentation, and test execution.
+[/swarm](slashCommand;swarm) Implement the plan, and have a verifier run tests when the workers finish.
 ```
 
-*(Show the Orchestrator decomposing milestones and spawning Explorers, Workers, and Critics in parallel. While the team works, transition to the terminal for Act II.)*
+> **Highlight in the Swarm UI:**
+> - **Coordinator & Shared Message Board:** Your conversation becomes the **Coordinator**, posting scoped worker briefs to an append-only live board where named agents collaborate openly via `@mentions`—with a **Graph** tab mapping message flow.
+> - **Isolated Workspaces & Zero-Token Parking:** Concurrent authors get isolated working copies so parallel file edits don't collide, while idle workers park in a `waiting` state at **zero token cost** until `@mentioned`.
+> - **Live Model Picker & `@verifier` Loop:** Point out per-worker model switching in the Swarm UI, and show the **`@verifier`** inspecting diffs, running tests, and `@mentioning` workers directly if repairs are needed.
+
+*(While the swarm works in the background, transition to the terminal for Act II.)*
 
 ---
 
