@@ -1,6 +1,6 @@
 """Starter stub for BundleBot.
 
-This starter stub awaits `/plan`, `/grill-me`, and `/teamwork-preview`
+This starter stub awaits `/plan`, `/grill-me`, and `/swarm`
 to implement the full B2B kit-builder pipeline over `data/catalog.json`.
 """
 
@@ -33,7 +33,7 @@ def greet_partner() -> str:
   """Starter placeholder tool."""
   return (
       "BundleBot starter stub ready. Run `/plan`, `/grill-me`, and "
-      "`/teamwork-preview` to build the full B2B Kit Builder."
+      "`/swarm` to build the full B2B Kit Builder."
   )
 
 

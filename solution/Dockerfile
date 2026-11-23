@@ -24,7 +24,13 @@ COPY ./pyproject.toml ./README.md ./uv.lock* ./
 COPY ./app ./app
 COPY ./data ./data
 
-RUN uv sync --frozen
+# If uv.lock pins packages to an internal mirror unreachable by Cloud Build,
+# discard it inside the image and resolve from public PyPI.
+RUN if grep -q "airlock-proxy.uplink.goog" uv.lock 2>/dev/null; then \
+      rm -f uv.lock && UV_DEFAULT_INDEX=https://pypi.org/simple uv sync; \
+    else \
+      uv sync --frozen; \
+    fi
 
 ARG AGENT_VERSION=0.0.0
 ENV AGENT_VERSION=${AGENT_VERSION}
