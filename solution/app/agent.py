@@ -39,7 +39,7 @@ os.environ.setdefault("GOOGLE_GENAI_USE_VERTEXAI", "true")
 MODEL_ID = "gemini-4-hydrogen"
 GENERATE_CONTENT_CONFIG = types.GenerateContentConfig(
     thinking_config=types.ThinkingConfig(
-        thinking_level=types.ThinkingLevel.MEDIUM,
+        thinking_level=types.ThinkingLevel.LOW,
     ),
 )
 
