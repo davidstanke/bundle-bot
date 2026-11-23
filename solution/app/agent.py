@@ -2,15 +2,18 @@
 
 from __future__ import annotations
 
+from collections.abc import AsyncGenerator, Callable
 import os
 from typing import Any
 
 import google.auth
 from google.adk.agents import LlmAgent
+from google.adk.agents.context import Context
 from google.adk.apps import App
 from google.adk.events.event import Event
 from google.adk.workflow import JoinNode, Workflow, node
 from google.genai import types
+from typing_extensions import override
 
 from app.catalog_tools import (
     KitRequirements,
@@ -30,14 +33,87 @@ try:
     os.environ.setdefault("GOOGLE_CLOUD_PROJECT", _default_project)
 except Exception:
   pass
-os.environ.setdefault("GOOGLE_CLOUD_LOCATION", "us-central1")
+os.environ["GOOGLE_CLOUD_LOCATION"] = "global"
 os.environ.setdefault("GOOGLE_GENAI_USE_VERTEXAI", "true")
 
-MODEL_ID = "gemini-2.5-flash"
+MODEL_ID = "gemini-4-hydrogen"
+GENERATE_CONTENT_CONFIG = types.GenerateContentConfig(
+    thinking_config=types.ThinkingConfig(
+        thinking_level=types.ThinkingLevel.MEDIUM,
+    ),
+)
 
-parse_requirements = LlmAgent(
+
+def format_requirements_status(data: dict[str, Any]) -> str:
+  """Format a concise one-line [Requirements] status message from KitRequirements."""
+  req = KitRequirements.model_validate(data)
+  kit_word = "kit" if req.quantity == 1 else "kits"
+  msg = f"[Requirements] {req.quantity} {req.tier} {kit_word} shipping to {req.destination}"
+  if req.budget_usd is not None:
+    msg += f" (budget: ${req.budget_usd:,.2f})"
+  if req.include_headset:
+    msg += " + ANC headset"
+  return msg
+
+
+def format_selected_kit_status(data: dict[str, Any]) -> str:
+  """Format a concise one-line [Kit Builder] status message from SelectedKit."""
+  kit = SelectedKit.model_validate(data)
+  sku_word = "SKU" if len(kit.skus) == 1 else "SKUs"
+  return f"[Kit Builder] Selected {len(kit.skus)} {sku_word}: {', '.join(kit.skus)}"
+
+
+class StatusLlmAgent(LlmAgent):
+  """LlmAgent workflow node that replaces raw structured-JSON text with a concise status line."""
+
+  status_formatter: Callable[[dict[str, Any]], str] | None = None
+
+  @override
+  async def _run_impl(
+      self,
+      *,
+      ctx: Context,
+      node_input: Any,
+  ) -> AsyncGenerator[Any, None]:
+    async for event in super()._run_impl(ctx=ctx, node_input=node_input):
+      if (
+          self.status_formatter is not None
+          and event.content
+          and event.content.role == "model"
+      ):
+        if event.partial and not event.get_function_calls():
+          continue
+        if event.get_function_calls():
+          kept_parts = [
+              p
+              for p in (event.content.parts or [])
+              if p.function_call is not None or getattr(p, "thought", False)
+          ]
+          if kept_parts != list(event.content.parts or []):
+            event = event.model_copy(
+                update={
+                    "content": types.Content(role="model", parts=kept_parts)
+                }
+            )
+        elif isinstance(event.output, dict):
+          status_text = self.status_formatter(event.output)
+          event = event.model_copy(
+              update={
+                  "content": types.Content(
+                      role="model",
+                      parts=[types.Part.from_text(text=status_text)],
+                  )
+              }
+          )
+        else:
+          event = event.model_copy(update={"content": None})
+      yield event
+
+
+parse_requirements = StatusLlmAgent(
     name="parse_requirements",
     model=MODEL_ID,
+    generate_content_config=GENERATE_CONTENT_CONFIG,
     description="Parses B2B reseller kit requirements from natural language.",
     instruction=(
         "Extract the structured B2B kit requirements from the user's request.\n"
@@ -49,11 +125,13 @@ parse_requirements = LlmAgent(
     ),
     output_schema=KitRequirements,
     output_key="requirements",
+    status_formatter=format_requirements_status,
 )
 
-build_kit = LlmAgent(
+build_kit = StatusLlmAgent(
     name="build_kit",
     model=MODEL_ID,
+    generate_content_config=GENERATE_CONTENT_CONFIG,
     description="Selects compatible hardware and software SKUs from data/catalog.json.",
     instruction=(
         "You are configuring a B2B hardware + software kit from `data/catalog.json`.\n"
@@ -68,6 +146,7 @@ build_kit = LlmAgent(
     tools=[select_default_kit_skus, get_catalog_summary],
     output_schema=SelectedKit,
     output_key="selected_kit",
+    status_formatter=format_selected_kit_status,
 )
 
 
@@ -121,6 +200,7 @@ join_checks = JoinNode(name="join_checks")
 format_quote = LlmAgent(
     name="format_quote",
     model=MODEL_ID,
+    generate_content_config=GENERATE_CONTENT_CONFIG,
     description="Synthesizes the parallel validation, stock, and margin checks into a B2B partner quote.",
     instruction=(
         "You are BundleBot, a B2B channel distribution advisor. Present a clear, "
